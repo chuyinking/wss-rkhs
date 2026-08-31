@@ -1,0 +1,46 @@
+#setting id
+model_name: edge5e-5_lr1e-4_B32T #sal800_lr1e-4S4kD05_augB64
+
+# arguments for dataset
+dataset: ecssd
+nclass: 1
+crop_size: [118, 132] #112
+aug: True
+data_root: ../../../Datasets/ECSSDplus #VOC12selected #ECSSD1000 #../../Datasets/ECSSDplus
+mode: 'scribble'
+
+# arguments for training
+device: cuda:0
+epochs: 8000
+batch_size: 32 #4
+lr: 0.0001 #0.0001  # 4GPUs
+lr_step: 4000
+lr_multi: 0.5 #0.5
+
+# arguments for loss
+criterion:
+  name: CELoss
+  kwargs:
+    ignore_index: 4
+conf_thresh: 0.95
+fk_form: 1-2p
+w_e_alpha: 0.00005 #0.00005
+w_e_Beta: 0.0
+w_e_type: raw
+
+# arguments for model
+network: 'UNet'
+aux: False
+nchannel: 3
+bilinear: False
+backbone: resnet101
+multi_grid: False
+#network: 'DeepLabV3Plus'
+#aux: False
+#backbone: resnet101
+#multi_grid: False
+#replace_stride_with_dilation: [False, True, True] #paper:[False, False, False]
+#dilations: [6, 12, 18]
+#pretrain_weight: True
+
+load: './checkpoints/ecssdplus_rkhs/mIoU_fk_lr1e-4_B32T_-0.291_75.39.pth' #'./checkpoints/ecssdplus_rkhs/mIoU_sal1400_lr1e-4_B32_-0.323_70.27.pth'

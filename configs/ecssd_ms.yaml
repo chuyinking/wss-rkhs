@@ -1,0 +1,47 @@
+#setting id
+model_name: pce_lr1e-4_augB32T
+
+# arguments for dataset
+dataset: ecssd
+nclass: 1
+crop_size: [118, 132] #112
+aug: True
+data_root: ../../Datasets/ECSSDplus #VOC12selected #ECSSD1000
+mode: 'scribble'
+
+# arguments for training
+device: cuda:0
+epochs: 8000 #1200
+batch_size: 32 #4
+lr: 0.0001 #0.001  # 4GPUs
+lr_step: 4000
+lr_multi: 0.5 #0.5
+
+# arguments for loss
+criterion:
+  name: CELoss
+  kwargs:
+    ignore_index: 4
+conf_thresh: 0.95
+ms_alpha: 0.0 #Beta, for whole CV energy
+w_e_alpha: 0.000001 #0.000001 (1e-6) #Gamma, for TV
+w_e_Beta: 0.0 #2.0
+w_e_type: None
+
+# arguments for model
+network: 'UNet'
+aux: False
+nchannel: 3
+bilinear: False
+backbone: resnet101
+multi_grid: False
+#network: 'DeepLabV3Plus'
+#aux: False
+#backbone: resnet101
+#multi_grid: False
+#replace_stride_with_dilation: [False, True, True] #paper:[False, False, False]
+#dilations: [6, 12, 18]
+#pretrain_weight: True
+
+load: './checkpoints/ecssdplus_ms/mIoU_pce_lr1e-4_augB32_0.006_69.82.pth'
+#'./checkpoints/ecssdplus_rkhs/mIoU_sal1400_lr1e-4_B32_-0.323_70.27.pth'
