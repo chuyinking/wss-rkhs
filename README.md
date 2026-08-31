@@ -1,19 +1,19 @@
 # wss-rkhs
-Source code for the paper "A Unified Variational Framework for Deep Weakly Supervised Image Segmentation"
+Source code for the paper "A Unified Variational Framework for Deep Weakly Supervised Image Segmentation" (accepted by Journal of Mathematical Imaging and Vision, to be published)
 
 ## Preparing
 Download the ResNet-101 weight file (.pth) and put it into the folder 
 > model/pretrained
 
 Create the folder 
-> checkpoint
+> checkpoints
 
 
 ## Data Preparation
 To be added...
 
 ## Training
-We offer the training code for our method and also the comparison methods in the same framework. The codes are 
+We offer the training codes for our method and also the comparison methods in the same framework. The codes are 
 
 > train_rkhs.py (ours)
 > 
@@ -32,3 +32,5 @@ To start training, simply run one of the files above.
 Run
 > eval.py
  
+The generated images are stored in
+> records/generated_images
